@@ -2,7 +2,7 @@ import React from 'react'
 import { PhotoModel } from '../../models/PhotoModel'
 import Photo, { PhotoForm } from '../Photo';
 import { Card } from 'semantic-ui-react'
-// import StatusBar from '../StatusBar';
+import StatusBar from '../StatusBar/StatusBar';
 import { DeleteButton } from '../Common';
 
 interface PhotoListProps {
@@ -45,14 +45,14 @@ const PhotoList = ({ photos, deletePhoto, editPhoto, createPhoto }: PhotoListPro
 
     return (
         <div>
-            {/* <StatusBar title={`${photos.length} Photo(s) total`}>
+            <StatusBar title={`${photos.length} Photo(s) total`}>
                 <PhotoForm 
                 formType='New'
                 createPhoto={createPhoto} 
                 index={''}
                 editPhoto={editPhoto}
                 />
-            </StatusBar> */}
+            </StatusBar>
             <Card.Group itemsPerRow={6} doubling>
                 {renderPhoto()}
             </Card.Group>
