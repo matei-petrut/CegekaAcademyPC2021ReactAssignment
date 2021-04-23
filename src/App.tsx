@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Nav from './components/Nav/Nav';
 
 function App() {
   return (
-    <div className="App">
-      Boilerplate React Photo Album
-    </div>
+    <BrowserRouter>
+      <Nav />
+    </BrowserRouter>
   );
 }
 
