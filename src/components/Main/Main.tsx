@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import * as api from '../../api/index';
 import { Switch, Route } from 'react-router';
 import { PhotoModel } from '../../models/PhotoModel';
@@ -6,29 +6,31 @@ import { PhotoList } from '../Photo/index';
 import { AlbumModel } from '../../models/AlbumModel';
 import AlbumList from '../Album/AlbumList';
 import { Message } from 'semantic-ui-react';
+import { AlbumsContext } from '../../contexts/AlbumsContext';
 
 const Main = () => {
-    const [albums, setAlbums] = useState<AlbumModel[]>([]);
+    // const [albums, setAlbums] = useState<AlbumModel[]>([]);
+    const { albums, createAlbum, editAlbum, deleteAlbum } = useContext(AlbumsContext);
     const [photos, setPhotos] = useState<PhotoModel[]>([]);
 
     useEffect(() => {
-        const localAlbums = localStorage.getItem('albums');
+        // const localAlbums = localStorage.getItem('albums');
         const localPhotos = localStorage.getItem('photos');
 
-        if (localPhotos && localAlbums) {
-            setAlbums(JSON.parse(localAlbums));
+        if (localPhotos) {
+            // setAlbums(JSON.parse(localAlbums));
             setPhotos(JSON.parse(localPhotos));
         } else {
-            const internalAlbums = api.getAlbums();
+            // const internalAlbums = api.getAlbums();
             const internalPhotos = api.getPhotos();
-            setAlbums(internalAlbums);
+            // setAlbums(internalAlbums);
             setPhotos(internalPhotos);
         }
     }, []);
 
-    useEffect(() => {
-        localStorage.setItem('albums', JSON.stringify(albums));
-    }, [albums]);
+    // useEffect(() => {
+    //     localStorage.setItem('albums', JSON.stringify(albums));
+    // }, [albums]);
 
     useEffect(() => {
         localStorage.setItem('photos', JSON.stringify(photos));
@@ -50,21 +52,21 @@ const Main = () => {
         setPhotos(remainingPhotos);
     }
 
-    const createAlbum = (album: AlbumModel) => {
-        const timestamp = Date.now();
-        album.id = `album-${timestamp.toString()}`;
-        setAlbums(prevAlbums => [...prevAlbums, album]);
-    }
+    // const createAlbum = (album: AlbumModel) => {
+    //     const timestamp = Date.now();
+    //     album.id = `album-${timestamp.toString()}`;
+    //     setAlbums(prevAlbums => [...prevAlbums, album]);
+    // }
 
-    const editAlbum = (key: string, updatedAlbum: AlbumModel) => {
-        const updatedAlbums = albums.map(album => album.id === key ? updatedAlbum : album);
-        setAlbums(updatedAlbums);
-    }
+    // const editAlbum = (key: string, updatedAlbum: AlbumModel) => {
+    //     const updatedAlbums = albums.map(album => album.id === key ? updatedAlbum : album);
+    //     setAlbums(updatedAlbums);
+    // }
 
-    const deleteAlbum = (key: string) => {
-        const remainingAlbums = albums.filter(album => album.id !== key);
-        setAlbums(remainingAlbums);
-    }
+    // const deleteAlbum = (key: string) => {
+    //     const remainingAlbums = albums.filter(album => album.id !== key);
+    //     setAlbums(remainingAlbums);
+    // }
 
     const photoList = () => {
         return (
