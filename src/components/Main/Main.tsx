@@ -3,21 +3,31 @@ import * as api from '../../api/index';
 import { Switch, Route } from 'react-router';
 import { PhotoModel } from '../../models/PhotoModel';
 import { PhotoList } from '../Photo/index';
+import { AlbumModel } from '../../models/AlbumModel';
+import AlbumList from '../Album/AlbumList';
 
 const Main = () => {
+    const [albums, setAlbums] = useState<AlbumModel[]>([]);
     const [photos, setPhotos] = useState<PhotoModel[]>([]);
 
     useEffect(() => {
+        const localAlbums = localStorage.getItem('albums');
         const localPhotos = localStorage.getItem('photos');
 
-        if (localPhotos) {
+        if (localPhotos && localAlbums) {
+            setAlbums(JSON.parse(localAlbums));
             setPhotos(JSON.parse(localPhotos));
         } else {
+            const internalAlbums = api.getAlbums();
             const internalPhotos = api.getPhotos();
+            setAlbums(internalAlbums);
             setPhotos(internalPhotos);
         }
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem('albums', JSON.stringify(albums));
+    }, [albums]);
 
     useEffect(() => {
         localStorage.setItem('photos', JSON.stringify(photos));
@@ -39,6 +49,22 @@ const Main = () => {
         setPhotos(remainingPhotos);
     }
 
+    const createAlbum = (album: AlbumModel) => {
+        const timestamp = Date.now();
+        album.id = `album-${timestamp.toString()}`;
+        setAlbums(prevAlbums => [...prevAlbums, album]);
+    }
+
+    const editAlbum = (key: string, updatedAlbum: AlbumModel) => {
+        const updatedAlbums = albums.map(album => album.id === key ? updatedAlbum : album);
+        setAlbums(updatedAlbums);
+    }
+
+    const deleteAlbum = (key: string) => {
+        const remainingAlbums = albums.filter(album => album.id !== key);
+        setAlbums(remainingAlbums);
+    }
+
     const photoList = () => {
         return (
             <PhotoList 
@@ -50,9 +76,23 @@ const Main = () => {
         );
     }
 
+    const albumsList = () => {
+        return (
+            <AlbumList 
+                albums={albums}
+                photos={photos}
+                deleteAlbum={deleteAlbum}
+                editAlbum={editAlbum}
+                createAlbum={createAlbum}
+            />
+        );
+    }
+
     return (
         <Switch>
+            <Route exact path='/' component={albumsList} />
             <Route path='/photos' render={photoList} />
+            <Route path='/albums' render={albumsList} />
         </Switch>
     )
 }
