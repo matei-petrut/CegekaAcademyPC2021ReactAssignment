@@ -5,7 +5,7 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { DeleteButton, WithLightbox } from '../Common/index';
 import StatusBar from '../StatusBar/StatusBar';
 import Album from './Album';
-// import AlbumForm from './AlbumForm';
+import AlbumForm from './AlbumForm';
 
 interface AlbumListProps {
     albums: AlbumModel[],
@@ -35,14 +35,14 @@ const AlbumList = ({ albums, photos, deleteAlbum, editAlbum, createAlbum }: Albu
                         album={album}
                         albumPhotos={albumPhotos}
                     >
-                        {/* <AlbumForm 
+                        <AlbumForm 
                             formType="Edit"
                             index={album.id}
                             albumProp={album}
                             photos={photos}
                             editAlbum={editAlbum}
                             createAlbum={createAlbum}
-                        /> */}
+                        />
                         <Button icon>
                             <WithLightbox
                                 photos={albumPhotos}
@@ -64,13 +64,13 @@ const AlbumList = ({ albums, photos, deleteAlbum, editAlbum, createAlbum }: Albu
     return (
         <div>
             <StatusBar title={`${albums.length} Album(s) total`}>
-                {/* <AlbumForm
+                <AlbumForm
                   photos={photos}  
                   formType='New'
                   createAlbum={createAlbum} 
                   index={''}
                   editAlbum={editAlbum}
-                /> */}
+                />
             </StatusBar>
             <Card.Group itemsPerRow={4} doubling>
                 {renderAlbums()}
