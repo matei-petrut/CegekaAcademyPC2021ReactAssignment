@@ -5,6 +5,7 @@ import { PhotoModel } from '../../models/PhotoModel';
 import { PhotoList } from '../Photo/index';
 import { AlbumModel } from '../../models/AlbumModel';
 import AlbumList from '../Album/AlbumList';
+import { Message } from 'semantic-ui-react';
 
 const Main = () => {
     const [albums, setAlbums] = useState<AlbumModel[]>([]);
@@ -88,11 +89,22 @@ const Main = () => {
         );
     }
 
+    const errorMessage = () => {
+        return (
+            <Message 
+                icon='warning circle'
+                header='Error!'
+                content='Please try again.'
+            />
+        );
+    }
+
     return (
         <Switch>
             <Route exact path='/' component={albumsList} />
             <Route path='/photos' render={photoList} />
             <Route path='/albums' render={albumsList} />
+            <Route render={errorMessage} />
         </Switch>
     )
 }
