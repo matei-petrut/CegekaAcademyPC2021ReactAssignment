@@ -3,5 +3,5 @@ export interface AlbumModel {
     name: string;
     description: string;
     tags: string[];
-    photoIds: string[]
+    photosIds: string[]
 }
