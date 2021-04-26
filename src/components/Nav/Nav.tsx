@@ -3,7 +3,7 @@ import { Menu, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
-    const [activeItem, setActiveItem] = useState('albums');
+    const [activeItem, setActiveItem] = useState('/');
 
     const handleItemClick = (name: string) => { setActiveItem(name) }
 
