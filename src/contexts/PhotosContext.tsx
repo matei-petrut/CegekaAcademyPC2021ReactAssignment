@@ -10,7 +10,7 @@ let dispatcher = {
     deletePhoto: (key: string) => {}
 }
 
-const loadState = () {
+const loadState = () => {
     const localPhotos = localStorage.getItem('photos');
     if (!localPhotos) return api.getPhotos();
     return JSON.parse(localPhotos);

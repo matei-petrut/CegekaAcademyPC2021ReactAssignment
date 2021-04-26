@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AlbumModel } from '../../models/AlbumModel';
 import { PhotoModel } from '../../models/PhotoModel';
-import { Modal, Form, Button, Icon, Message, Label, Dropdown } from 'semantic-ui-react';
+import { Modal, Form, Button, Icon, Message } from 'semantic-ui-react';
 
 interface AlbumFormProps {
     formType: 'New' | 'Edit';
